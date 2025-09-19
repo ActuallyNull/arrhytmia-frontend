@@ -8,6 +8,7 @@ const PredictionView = () => {
 
   // Debug: log env var at component mount
   console.log('VITE_API_URL in PredictionView:', import.meta.env.VITE_API_URL);
+  console.log(import.meta.env)
   const [droppedECGFilename, setDroppedECGFilename] = useState(null);
 
   useEffect(() => {
