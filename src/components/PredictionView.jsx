@@ -5,14 +5,19 @@ import axios from 'axios';
 
 const PredictionView = () => {
   const [ecgs, setEcgs] = useState([]);
+
+  // Debug: log env var at component mount
+  console.log('VITE_API_URL in PredictionView:', import.meta.env.VITE_API_URL);
   const [droppedECGFilename, setDroppedECGFilename] = useState(null);
 
   useEffect(() => {
     const fetchShowcaseECGs = async () => {
       try {
   const API_BASE_URL = import.meta.env.VITE_API_URL;
+          console.log('VITE_API_URL:', API_BASE_URL);
   const response = await axios.get(`${API_BASE_URL}/showcase-ecgs?folder_type=prediction`);
-        setEcgs(response.data);
+    console.log('API response in PredictionView:', response.data);
+    setEcgs(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error('Error fetching showcase ECGs:', error);
       }

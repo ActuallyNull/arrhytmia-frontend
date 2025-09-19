@@ -14,8 +14,9 @@ const PredictionControl = ({ droppedECG, onDrop }) => {
 
     setIsLoading(true);
     try {
-  const API_BASE_URL = import.meta.env.VITE_API_URL;
-  const response = await axios.post(`${API_BASE_URL}/predict`, {
+      const API_BASE_URL = import.meta.env.VITE_API_URL;
+        console.log('VITE_API_URL:', API_BASE_URL);
+      const response = await axios.post(`${API_BASE_URL}/predict`, {
         filename: droppedECG.filename,
       });
       setPrediction(response.data.label);
