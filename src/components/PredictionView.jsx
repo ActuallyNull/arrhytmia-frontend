@@ -10,7 +10,8 @@ const PredictionView = () => {
   useEffect(() => {
     const fetchShowcaseECGs = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/showcase-ecgs?folder_type=prediction');
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+  const response = await axios.get(`${API_BASE_URL}/showcase-ecgs?folder_type=prediction`);
         setEcgs(response.data);
       } catch (error) {
         console.error('Error fetching showcase ECGs:', error);
