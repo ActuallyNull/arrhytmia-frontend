@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = "https://pp-arrhytmia-backend.onrender.com/";
 console.log('VITE_API_URL:', API_BASE_URL);
 import { Upload, Trash2, Pencil } from 'lucide-react';
 

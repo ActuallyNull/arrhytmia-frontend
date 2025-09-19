@@ -145,7 +145,7 @@ const ECGImageViewer = () => {
     const fetchECG = async () => {
       try {
         setLoading(true);
-  const API_BASE_URL = import.meta.env.VITE_API_URL;
+  const API_BASE_URL = "https://pp-arrhytmia-backend.onrender.com/";
   console.log('VITE_API_URL:', API_BASE_URL);
   const response = await axios.get(`${API_BASE_URL}/showcase-ecgs?folder_type=viewer`);
   console.log('API response in ECGImageViewer:', response.data);
