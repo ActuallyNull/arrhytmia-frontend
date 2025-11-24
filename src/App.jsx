@@ -22,7 +22,6 @@ function App() {
                         <main className="container mx-auto px-4 py-8">
                             <Routes>
                                 <Route path="/" element={<PredictionPage />} />
-                                <Route path="/admin" element={<AdminPanel />} />
                                 <Route path="/view-ecg" element={<ECGSelector />} />
                                 <Route path="/view-ecg/:filename" element={<ECGImageViewer />} /> {/* New route */}
                             </Routes>

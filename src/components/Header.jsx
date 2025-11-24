@@ -26,25 +26,10 @@ const Header = () => {
               Upload ECG
             </Link>
             <Link 
-              to="/admin" 
-              className="text-gray-700 hover:text-primary-600 font-medium transition-colors dark:text-gray-300 dark:hover:text-primary-500">
-              Admin Panel
-            </Link>
-            <Link 
               to="/view-ecg" 
               className="text-gray-700 hover:text-primary-600 font-medium transition-colors dark:text-gray-300 dark:hover:text-primary-500">
               View ECG
             </Link>
-            <a 
-              href="#about" 
-              className="text-gray-700 hover:text-primary-600 font-medium transition-colors dark:text-gray-300 dark:hover:text-primary-500"> {/* Added dark mode text colors */}
-              About
-            </a>
-            <a 
-              href="#help" 
-              className="text-gray-700 hover:text-primary-600 font-medium transition-colors dark:text-gray-300 dark:hover:text-primary-500"> {/* Added dark mode text colors */}
-              Help
-            </a>
             <ThemeToggle /> {/* Added ThemeToggle */}
           </nav>
         </div>
