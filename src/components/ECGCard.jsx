@@ -1,19 +1,10 @@
 import React from 'react';
-import { useDrag } from 'react-dnd';
 import Plot from 'react-plotly.js';
+import { useECG } from '../context/ECGContext';
 
-const ItemTypes = {
-  ECG_CARD: 'ecg_card',
-};
-
-const DraggableECGCard = ({ ecg }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.ECG_CARD,
-    item: { ecg },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }));
+const ECGCard = ({ ecg, isSelectable = false }) => {
+  const { selectedEcg, setSelectedEcg } = useECG();
+  const isSelected = isSelectable && selectedEcg && selectedEcg.filename === ecg.filename;
 
   if (!ecg) {
     return null;
@@ -24,13 +15,15 @@ const DraggableECGCard = ({ ecg }) => {
 
   return (
     <div
-      ref={drag}
-      className="w-full border p-4 rounded-lg shadow-sm bg-white dark:bg-gray-700 dark:border-gray-600"
+      onClick={isSelectable ? () => setSelectedEcg(ecg) : undefined}
+      className={`relative w-full border p-4 rounded-lg shadow-sm bg-white dark:bg-gray-700 dark:border-gray-600 ${isSelected ? 'opacity-50' : ''}`}
       style={{
-        cursor: 'move',
-        opacity: isDragging ? 0.5 : 1,
+        cursor: isSelectable ? 'pointer' : 'default',
       }}
     >
+      {isSelected && (
+        <div className="absolute inset-0 bg-gray-500 opacity-50 rounded-lg"></div>
+      )}
       <h3 className="font-semibold text-lg mb-2 dark:text-white">{filename}</h3>
       <div className="w-full h-64">
         <Plot
@@ -57,4 +50,4 @@ const DraggableECGCard = ({ ecg }) => {
   );
 };
 
-export default DraggableECGCard;
+export default ECGCard;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DraggableECGCard from './DraggableECGCard';
+import ECGCard from './ECGCard';
 import PredictionControl from './PredictionControl';
 import axios from 'axios';
 
@@ -9,7 +9,6 @@ const PredictionView = () => {
   // Debug: log env var at component mount
   console.log('VITE_API_URL in PredictionView:', import.meta.env.VITE_API_URL);
   console.log(import.meta.env)
-  const [droppedECGFilename, setDroppedECGFilename] = useState(null);
 
   useEffect(() => {
     const fetchShowcaseECGs = async () => {
@@ -26,23 +25,15 @@ const PredictionView = () => {
     fetchShowcaseECGs();
   }, []);
 
-  const handleDrop = (ecg) => {
-    setDroppedECGFilename(ecg.filename);
-  };
-
-  const showcaseECGs = ecgs.filter(ecg => ecg.filename !== droppedECGFilename);
-  const droppedECG = ecgs.find(ecg => ecg.filename === droppedECGFilename);
-
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Showcase ECGs</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        {showcaseECGs.map((ecg) => (
-          <DraggableECGCard key={ecg.filename} ecg={ecg} />
+        {ecgs.map((ecg) => (
+          <ECGCard key={ecg.filename} ecg={ecg} isSelectable={true} />
         ))}
-        {droppedECG && <div className="border-2 border-dashed rounded-lg" />}
       </div>
-      <PredictionControl droppedECG={droppedECG} onDrop={handleDrop} />
+      <PredictionControl />
     </div>
   );
 };

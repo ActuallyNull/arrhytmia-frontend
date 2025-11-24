@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import DropZone from './DropZone';
+import PredictionSpace from './PredictionSpace';
+import { useECG } from '../context/ECGContext';
 import { Play, Loader } from 'lucide-react';
 import axios from 'axios';
 
-const PredictionControl = ({ droppedECG, onDrop }) => {
+const PredictionControl = () => {
+  const { selectedEcg } = useECG();
   const [prediction, setPrediction] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePredict = async () => {
-    if (!droppedECG) {
+    if (!selectedEcg) {
       return;
     }
 
@@ -17,7 +19,7 @@ const PredictionControl = ({ droppedECG, onDrop }) => {
       const API_BASE_URL = "https://pp-arrhytmia-backend.onrender.com";
         console.log('VITE_API_URL:', API_BASE_URL);
       const response = await axios.post(`${API_BASE_URL}/predict`, {
-        filename: droppedECG.filename,
+        filename: selectedEcg.filename,
       });
       setPrediction(response.data.label);
     } catch (error) {
@@ -37,12 +39,12 @@ const PredictionControl = ({ droppedECG, onDrop }) => {
   return (
     <div className="grid grid-cols-3 gap-4 items-center">
       <div className="col-span-1">
-        <DropZone droppedECG={droppedECG} onDrop={onDrop} />
+        <PredictionSpace />
       </div>
       <div className="col-span-1 flex justify-center">
         <button
           onClick={handlePredict}
-          disabled={!droppedECG || isLoading}
+          disabled={!selectedEcg || isLoading}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full w-20 h-20 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? <Loader className="animate-spin" /> : <Play size={32} />}

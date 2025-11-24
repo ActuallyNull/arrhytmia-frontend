@@ -4,6 +4,7 @@ const ECGContext = createContext()
 
 const initialState = {
   ecgFiles: [],
+  selectedEcg: null,
   predictions: {},
   loading: false,
   error: null
@@ -15,6 +16,11 @@ const ecgReducer = (state, action) => {
       return {
         ...state,
         ecgFiles: [...state.ecgFiles, ...action.payload]
+      }
+    case 'SET_SELECTED_ECG':
+      return {
+        ...state,
+        selectedEcg: action.payload
       }
     case 'SET_PREDICTION':
       return {
@@ -51,6 +57,10 @@ export const ECGProvider = ({ children }) => {
     dispatch({ type: 'ADD_ECG_FILES', payload: files })
   }
 
+  const setSelectedEcg = (ecg) => {
+    dispatch({ type: 'SET_SELECTED_ECG', payload: ecg })
+  }
+
   const setPrediction = (id, prediction) => {
     dispatch({ type: 'SET_PREDICTION', payload: { id, prediction } })
   }
@@ -70,6 +80,7 @@ export const ECGProvider = ({ children }) => {
   const value = {
     ...state,
     addECGFiles,
+    setSelectedEcg,
     setPrediction,
     setLoading,
     setError,

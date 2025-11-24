@@ -9,6 +9,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ECGProvider } from './context/ECGContext';
 import { ThemeProvider } from './context/ThemeContext';
+import Disclaimer from './components/Disclaimer';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <ECGProvider>
                     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
                         <Header />
+                        <Disclaimer />
                         <main className="container mx-auto px-4 py-8">
                             <Routes>
                                 <Route path="/" element={<PredictionPage />} />
